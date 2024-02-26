@@ -8,8 +8,6 @@ import (
 	"github.com/usysrc/raylib-boilerplate/internal/game/entity"
 )
 
-const DT = 0.016
-
 type InputSystem struct {
 	Components *component.Manager
 	ShipEntity component.Entity
@@ -24,16 +22,16 @@ func (is *InputSystem) Update() {
 
 	speed := 16.0
 	if rl.IsKeyDown(rl.KeyUp) {
-		velocity.Y -= 1.0 * DT * speed
+		velocity.Y -= 1.0 * float64(rl.GetFrameTime()) * speed
 	}
 	if rl.IsKeyDown(rl.KeyDown) {
-		velocity.Y += 1.0 * DT * speed
+		velocity.Y += 1.0 * float64(rl.GetFrameTime()) * speed
 	}
 	if rl.IsKeyDown(rl.KeyLeft) {
-		velocity.X -= 1.0 * DT * speed
+		velocity.X -= 1.0 * float64(rl.GetFrameTime()) * speed
 	}
 	if rl.IsKeyDown(rl.KeyRight) {
-		velocity.X += 1.0 * DT * speed
+		velocity.X += 1.0 * float64(rl.GetFrameTime()) * speed
 	}
 	if rl.IsKeyPressed(rl.KeySpace) {
 		is.CreateBullet()

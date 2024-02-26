@@ -1,5 +1,7 @@
 package systems
 
+import rl "github.com/gen2brain/raylib-go/raylib"
+
 type ITimerEntity interface {
 	Init()
 	Update()
@@ -31,7 +33,7 @@ func (s *Timer) Update() {
 	// backwards because we might need to remove timers while iterating
 	for i := len(s.timers) - 1; i >= 0; i-- {
 		s.timers[i].Update()
-		s.times[i] -= DT
+		s.times[i] -= float64(rl.GetFrameTime())
 		if s.times[i] <= 0 {
 			s.timers[i].Done()
 			s.RemoveTimerByIndex(i)
