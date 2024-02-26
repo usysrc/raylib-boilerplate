@@ -1,6 +1,6 @@
 # raylib Boilerplate
 
-A small boilerplate to make games in [raylib engine](https://github.com/raysan5/raylib).
+A small boilerplate to make games in [raylib-go](https://github.com/gen2brain/raylib-go)
 
 Features:
 
