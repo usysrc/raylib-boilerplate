@@ -1,10 +1,10 @@
 package component
 
-type IDGenerator struct {
+type Counter struct {
 	nextID int
 }
 
-func (gen *IDGenerator) NextID() int {
+func (gen *Counter) NextID() int {
 	gen.nextID++
 	return gen.nextID
 }
