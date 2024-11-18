@@ -11,7 +11,7 @@ var scale float32
 var speed float32
 
 func Init() {
-	speed = 100
+	speed = 200
 	img := rl.LoadImage("internal/assets/ship.png")
 	shipImage = rl.LoadTextureFromImage(img)
 	rl.UnloadImage(img)
