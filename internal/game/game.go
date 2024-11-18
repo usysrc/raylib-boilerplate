@@ -1,50 +1,39 @@
 package game
 
 import (
-	"errors"
-
-	"github.com/usysrc/raylib-boilerplate/internal/game/component"
-	"github.com/usysrc/raylib-boilerplate/internal/game/entity"
-	"github.com/usysrc/raylib-boilerplate/internal/game/systems"
+	rl "github.com/gen2brain/raylib-go/raylib"
+	"github.com/usysrc/raylib-boilerplate/internal/game/bullet"
+	"github.com/usysrc/raylib-boilerplate/internal/game/enemy"
+	"github.com/usysrc/raylib-boilerplate/internal/game/ship"
 )
 
-var ErrTerminated = errors.New("errTerminated")
-
 type Game struct {
-	cm             *component.Manager
-	movementSystem *systems.MovementSystem
-	renderSystem   *systems.RenderSystem
-	inputSystem    *systems.InputSystem
-	spawnSystem    *systems.Spawn
-	colliderSystem *systems.Collider
+	background rl.Texture2D
 }
 
 func (g *Game) Init() {
-	// Create component manager
-	g.cm = component.NewManager()
-
-	// Create entities
-	entity.CreateBackground(g.cm)
-	ship := entity.CreateShip(g.cm)
-
-	// Create systems
-	g.movementSystem = &systems.MovementSystem{Components: g.cm}
-	g.renderSystem = &systems.RenderSystem{Components: g.cm}
-	g.inputSystem = &systems.InputSystem{Components: g.cm, ShipEntity: ship}
-	g.spawnSystem = systems.NewSpawn(g.cm)
-	g.colliderSystem = &systems.Collider{Components: g.cm}
+	img := rl.LoadImage("internal/assets/background.png")
+	g.background = rl.LoadTextureFromImage(img)
+	rl.UnloadImage(img)
+	ship.Init()
+	bullet.Init()
+	enemy.Init()
 }
 
 func (g *Game) Update() error {
-	g.inputSystem.Update()
-	g.movementSystem.Update()
-	g.colliderSystem.Update()
-	g.spawnSystem.Update()
+	ship.Update()
+	bullet.Update()
+	enemy.Update()
 	return nil
 }
 
 func (g *Game) Draw() {
-	g.renderSystem.Draw()
+	// draw the background
+	rl.DrawTexture(g.background, 0, 0, rl.White)
+	// draw the ship and bullets
+	ship.Draw()
+	bullet.Draw()
+	enemy.Draw()
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
