@@ -29,10 +29,13 @@ func Create(x, y float32) *Bullet {
 }
 
 func (b *Bullet) Update() {
+	// move bullet up
 	velocity := rl.Vector2{}
 	b.Pos.Y -= b.speed * float32(rl.GetFrameTime())
 	b.Pos.X += velocity.X
 	b.Pos.Y += velocity.Y
+
+	// check collision with enemies
 	enemies := enemy.GetEnemies()
 	for i := range enemies {
 		if rl.CheckCollisionRecs(rl.Rectangle{X: b.Pos.X, Y: b.Pos.Y, Width: 16, Height: 16}, rl.Rectangle{X: enemies[i].Pos.X, Y: enemies[i].Pos.Y, Width: 16, Height: 16}) {
