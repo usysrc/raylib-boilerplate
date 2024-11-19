@@ -19,6 +19,7 @@ func (d *Death) Update(g *Game) error {
 }
 
 func (d *Death) Draw() {
+	rl.ClearBackground(rl.Black)
 	// draw the ship and bullets
 	rl.DrawText("You died", 200, 200, 20, rl.White)
 }
