@@ -1,41 +1,53 @@
 package game
 
-import (
-	rl "github.com/gen2brain/raylib-go/raylib"
-	"github.com/usysrc/raylib-boilerplate/internal/game/bullet"
-	"github.com/usysrc/raylib-boilerplate/internal/game/enemy"
-	"github.com/usysrc/raylib-boilerplate/internal/game/ship"
-)
+import rl "github.com/gen2brain/raylib-go/raylib"
+
+type Gamestater interface {
+	Init()
+	Update(g *Game) error
+	Draw()
+}
 
 type Game struct {
-	background rl.Texture2D
+	shouldCloseFlag bool
+	state           Gamestater
 }
 
 func (g *Game) Init() {
-	img := rl.LoadImage("internal/assets/background.png")
-	g.background = rl.LoadTextureFromImage(img)
-	rl.UnloadImage(img)
-	ship.Init()
-	bullet.Init()
-	enemy.Init()
+	g.Switch("play")
+	g.shouldCloseFlag = false
 }
 
 func (g *Game) Update() error {
-	ship.Update()
-	bullet.Update()
-	enemy.Update()
+	g.state.Update(g)
+	if rl.IsKeyPressed(rl.KeyEscape) {
+		g.Close()
+	}
 	return nil
 }
 
 func (g *Game) Draw() {
-	// draw the background
-	rl.DrawTexture(g.background, 0, 0, rl.White)
-	// draw the ship and bullets
-	ship.Draw()
-	bullet.Draw()
-	enemy.Draw()
+	g.state.Draw()
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
 	return 800, 600
+}
+
+func (g *Game) ShouldClose() bool {
+	return g.shouldCloseFlag
+}
+
+func (g *Game) Close() {
+	g.shouldCloseFlag = true
+}
+
+func (g *Game) Switch(to string) {
+	switch to {
+	case "play":
+		g.state = &Play{}
+	case "death":
+		g.state = &Death{}
+	}
+	g.state.Init()
 }
