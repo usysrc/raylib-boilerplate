@@ -20,7 +20,7 @@ func main() {
 	rl.SetTraceLogLevel(rl.LogError)
 	myGame.Init()
 
-	for !rl.WindowShouldClose() {
+	for !myGame.ShouldClose() && !rl.WindowShouldClose() {
 		myGame.Update()
 
 		rl.BeginDrawing()
