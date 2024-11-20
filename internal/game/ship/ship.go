@@ -17,7 +17,7 @@ var snd rl.Sound
 func Init() {
 	Alive = false
 	velocity = rl.Vector2{}
-	maxVelocity = 20
+	maxVelocity = 10
 	speed = 10
 	img := rl.LoadImage("internal/assets/ship.png")
 	shipImage = rl.LoadTextureFromImage(img)
