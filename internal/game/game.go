@@ -14,7 +14,7 @@ type Game struct {
 }
 
 func (g *Game) Init() {
-	g.Switch("play")
+	g.Switch("loading")
 	g.shouldCloseFlag = false
 }
 
@@ -48,6 +48,8 @@ func (g *Game) Switch(to string) {
 		g.state = &Play{}
 	case "death":
 		g.state = &Death{}
+	case "loading":
+		g.state = &Loading{}
 	}
 	g.state.Init()
 }

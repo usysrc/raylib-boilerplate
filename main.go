@@ -13,6 +13,7 @@ func init() {}
 
 func main() {
 	myGame = &game.Game{}
+	rl.SetConfigFlags(rl.FlagMsaa4xHint)
 	rl.InitWindow(800, 600, "raylib boilerplate")
 	defer rl.CloseWindow()
 
@@ -20,7 +21,7 @@ func main() {
 	rl.SetTraceLogLevel(rl.LogError)
 	myGame.Init()
 
-	for !myGame.ShouldClose() && !rl.WindowShouldClose() {
+	for !myGame.ShouldClose() {
 		myGame.Update()
 
 		rl.BeginDrawing()
