@@ -16,7 +16,7 @@ func (d *Loading) Init() {
 
 func (d *Loading) Update(g *Game) error {
 	t += rl.GetFrameTime() * 500
-	if t > 2000 {
+	if t > 1000 {
 		g.Switch("play")
 	}
 	return nil
