@@ -20,8 +20,8 @@ func Init() {
 	img := rl.LoadImage("internal/assets/ship.png")
 	shipImage = rl.LoadTextureFromImage(img)
 	rl.UnloadImage(img)
-	shipPos = rl.Vector2{X: 200, Y: 200}
-	scale = 4
+	shipPos = rl.Vector2{X: float32(rl.GetScreenWidth() / 2), Y: float32(rl.GetScreenHeight()) - 100}
+	scale = 1
 	snd = rl.LoadSound("internal/assets/laser.wav")
 }
 
@@ -51,7 +51,7 @@ func Update(g GamestateSwitcher) {
 	shipPos.Y += velocity.Y
 	enemies := enemy.GetEnemies()
 	for i := range enemies {
-		if rl.CheckCollisionRecs(rl.Rectangle{X: shipPos.X, Y: shipPos.Y, Width: 16, Height: 16}, rl.Rectangle{X: enemies[i].Pos.X, Y: enemies[i].Pos.Y, Width: 16, Height: 16}) {
+		if rl.CheckCollisionCircles(shipPos, 32, enemies[i].Pos, 20) {
 			g.Switch("death")
 			return
 		}
@@ -59,5 +59,6 @@ func Update(g GamestateSwitcher) {
 }
 
 func Draw() {
-	rl.DrawTextureEx(shipImage, shipPos, 0, scale, rl.White)
+	//draw image with the shipPos being at the center of the image
+	rl.DrawTexturePro(shipImage, rl.Rectangle{X: 0, Y: 0, Width: float32(shipImage.Width), Height: float32(shipImage.Height)}, rl.Rectangle{X: shipPos.X, Y: shipPos.Y, Width: float32(shipImage.Width), Height: float32(shipImage.Height)}, rl.Vector2{X: float32(shipImage.Width) / 2, Y: float32(shipImage.Height) / 2}, 0, rl.White)
 }

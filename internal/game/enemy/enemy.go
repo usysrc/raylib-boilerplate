@@ -23,7 +23,7 @@ func Create(x, y float32) *Enemy {
 	e.speed = float32(rl.GetRandomValue(50, 100))
 	e.image = enemyTexture
 	e.Pos = rl.Vector2{X: x, Y: y}
-	e.scale = 4
+	e.scale = 1
 	enemies = append(enemies, *e)
 	return e
 }
@@ -39,7 +39,7 @@ func (e *Enemy) Update() {
 }
 
 func (e *Enemy) Draw() {
-	rl.DrawTextureEx(e.image, e.Pos, 0, e.scale, rl.White)
+	rl.DrawTexturePro(e.image, rl.Rectangle{X: 0, Y: 0, Width: float32(e.image.Width), Height: float32(e.image.Height)}, rl.Rectangle{X: e.Pos.X, Y: e.Pos.Y, Width: float32(e.image.Width), Height: float32(e.image.Height)}, rl.Vector2{X: float32(e.image.Width) / 2, Y: float32(e.image.Height) / 2}, 0, rl.White)
 }
 
 func Init() {
@@ -53,7 +53,7 @@ func Init() {
 
 func Update() {
 	// create new enemy if random number is less than 0.01
-	if rl.GetRandomValue(0, 100) < 99 {
+	if rl.GetRandomValue(0, 100) < 1 {
 		Create(float32(rl.GetRandomValue(0, 800)), 0)
 	}
 	// update all enemies
@@ -69,7 +69,7 @@ func Update() {
 }
 
 func Draw() {
-	rl.DrawText(fmt.Sprintf("Enemies: %d", len(enemies)), 10, 10, 20, rl.Black)
+	rl.DrawText(fmt.Sprintf("Enemies: %d", len(enemies)), 10, 10, 20, rl.White)
 	for i := range enemies {
 		enemies[i].Draw()
 	}

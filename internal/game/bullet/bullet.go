@@ -25,7 +25,7 @@ func Create(x, y float32) *Bullet {
 	b.image = rl.LoadTextureFromImage(img)
 	rl.UnloadImage(img)
 	b.Pos = rl.Vector2{X: x, Y: y}
-	b.scale = 4
+	b.scale = 1
 	bullets = append(bullets, *b)
 	return b
 }
@@ -40,7 +40,7 @@ func (b *Bullet) Update() {
 	// check collision with enemies
 	enemies := enemy.GetEnemies()
 	for i := range enemies {
-		if rl.CheckCollisionRecs(rl.Rectangle{X: b.Pos.X, Y: b.Pos.Y, Width: 16, Height: 16}, rl.Rectangle{X: enemies[i].Pos.X, Y: enemies[i].Pos.Y, Width: 16, Height: 16}) {
+		if rl.CheckCollisionCircles(b.Pos, 5, enemies[i].Pos, 20) {
 			b.Alive = false
 			enemies[i].Alive = false
 			rl.SetSoundPitch(explosion, 1.0+float32(rl.GetRandomValue(-10, 10))/100)
@@ -50,7 +50,7 @@ func (b *Bullet) Update() {
 }
 
 func (b *Bullet) Draw() {
-	rl.DrawTextureEx(b.image, b.Pos, 0, b.scale, rl.Black)
+	rl.DrawTexturePro(b.image, rl.Rectangle{X: 0, Y: 0, Width: float32(b.image.Width), Height: float32(b.image.Height)}, rl.Rectangle{X: b.Pos.X, Y: b.Pos.Y, Width: float32(b.image.Width), Height: float32(b.image.Height)}, rl.Vector2{X: float32(b.image.Width) / 2, Y: float32(b.image.Height) / 2}, 0, rl.White)
 }
 
 func Init() {
