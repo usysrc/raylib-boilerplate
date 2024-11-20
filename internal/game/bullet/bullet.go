@@ -2,9 +2,11 @@ package bullet
 
 import (
 	"fmt"
+	"math"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 	"github.com/usysrc/raylib-boilerplate/internal/game/enemy"
+	"github.com/usysrc/raylib-boilerplate/internal/game/particle"
 )
 
 var bullets []Bullet
@@ -48,6 +50,13 @@ func (b *Bullet) Update() {
 			rl.SetSoundPitch(explosion, 1.0+float32(rl.GetRandomValue(-10, 10))/100)
 			rl.PlaySound(explosion)
 			score++
+			for i := 0; i < 5; i++ {
+				// random direction using math.atan2
+				dir := rl.Vector2{X: float32(math.Cos(float64(rl.GetRandomValue(0, 360)))), Y: float32(math.Sin(float64(rl.GetRandomValue(0, 360))))}
+
+				particle.Create(b.Pos, 0.5*float32(rl.GetRandomValue(1, 1000))/1000, dir)
+			}
+
 		}
 	}
 }

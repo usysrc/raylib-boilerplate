@@ -4,6 +4,7 @@ import (
 	rl "github.com/gen2brain/raylib-go/raylib"
 	"github.com/usysrc/raylib-boilerplate/internal/game/bullet"
 	"github.com/usysrc/raylib-boilerplate/internal/game/enemy"
+	"github.com/usysrc/raylib-boilerplate/internal/game/particle"
 	"github.com/usysrc/raylib-boilerplate/internal/game/ship"
 )
 
@@ -19,12 +20,14 @@ func (p *Play) Init() {
 	ship.Init()
 	bullet.Init()
 	enemy.Init()
+	particle.Init()
 }
 
 func (p *Play) Update(g *Game) error {
 	ship.Update(g)
 	bullet.Update()
 	enemy.Update()
+	particle.Update()
 	return nil
 }
 
@@ -36,4 +39,5 @@ func (p *Play) Draw() {
 	bullet.Draw()
 	enemy.Draw()
 	ship.Draw()
+	particle.Draw()
 }
