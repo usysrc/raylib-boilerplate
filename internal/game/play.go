@@ -32,8 +32,8 @@ func (p *Play) Draw() {
 	// draw the background
 	rl.DrawTexture(p.background, 0, 0, rl.White)
 
-	// draw the ship and bullets
-	ship.Draw()
+	// draw the ship, bullets and enemies
 	bullet.Draw()
 	enemy.Draw()
+	ship.Draw()
 }
