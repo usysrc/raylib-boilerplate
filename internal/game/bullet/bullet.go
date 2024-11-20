@@ -1,12 +1,14 @@
 package bullet
 
 import (
+	"fmt"
+
 	rl "github.com/gen2brain/raylib-go/raylib"
 	"github.com/usysrc/raylib-boilerplate/internal/game/enemy"
 )
 
 var bullets []Bullet
-
+var score int
 var explosion rl.Sound
 
 type Bullet struct {
@@ -45,6 +47,7 @@ func (b *Bullet) Update() {
 			enemies[i].Alive = false
 			rl.SetSoundPitch(explosion, 1.0+float32(rl.GetRandomValue(-10, 10))/100)
 			rl.PlaySound(explosion)
+			score++
 		}
 	}
 }
@@ -59,6 +62,9 @@ func Init() {
 
 	// load explosion sound
 	explosion = rl.LoadSound("internal/assets/explosion.wav")
+
+	// set score to 0
+	score = 0
 }
 
 func Update() {
@@ -74,6 +80,7 @@ func Update() {
 }
 
 func Draw() {
+	rl.DrawText(fmt.Sprintf("Score: %d", score), 10, 32, 20, rl.White)
 	for i := range bullets {
 		bullets[i].Draw()
 	}
