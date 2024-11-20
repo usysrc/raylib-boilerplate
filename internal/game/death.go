@@ -12,7 +12,7 @@ func (d *Death) Init() {
 }
 
 func (d *Death) Update(g *Game) error {
-	if rl.IsKeyPressed(rl.KeySpace) {
+	if rl.IsKeyPressed(rl.KeyX) {
 		g.Switch("play")
 	}
 	return nil
@@ -21,5 +21,7 @@ func (d *Death) Update(g *Game) error {
 func (d *Death) Draw() {
 	rl.ClearBackground(rl.Black)
 	// draw the ship and bullets
-	rl.DrawText("You died", 200, 200, 20, rl.White)
+	rl.DrawText("YOU DIED!", 200, 200, 64, rl.White)
+
+	rl.DrawText("Press x to restart", 200, 270, 16, rl.White)
 }

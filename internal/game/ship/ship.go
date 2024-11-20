@@ -28,16 +28,16 @@ type GamestateSwitcher interface {
 
 func Update(g GamestateSwitcher) {
 	velocity := rl.Vector2{}
-	if rl.IsKeyDown(rl.KeyUp) {
+	if rl.IsKeyDown(rl.KeyUp) || rl.IsKeyDown(rl.KeyW) {
 		velocity.Y -= 1.0 * float32(rl.GetFrameTime()) * speed
 	}
-	if rl.IsKeyDown(rl.KeyDown) {
+	if rl.IsKeyDown(rl.KeyDown) || rl.IsKeyDown(rl.KeyS) {
 		velocity.Y += 1.0 * float32(rl.GetFrameTime()) * speed
 	}
-	if rl.IsKeyDown(rl.KeyLeft) {
+	if rl.IsKeyDown(rl.KeyLeft) || rl.IsKeyDown(rl.KeyA) {
 		velocity.X -= 1.0 * float32(rl.GetFrameTime()) * speed
 	}
-	if rl.IsKeyDown(rl.KeyRight) {
+	if rl.IsKeyDown(rl.KeyRight) || rl.IsKeyDown(rl.KeyD) {
 		velocity.X += 1.0 * float32(rl.GetFrameTime()) * speed
 	}
 	if rl.IsKeyPressed(rl.KeySpace) {
