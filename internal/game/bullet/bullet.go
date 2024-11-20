@@ -7,6 +7,8 @@ import (
 
 var bullets []Bullet
 
+var explosion rl.Sound
+
 type Bullet struct {
 	image rl.Texture2D
 	Pos   rl.Vector2
@@ -41,6 +43,8 @@ func (b *Bullet) Update() {
 		if rl.CheckCollisionRecs(rl.Rectangle{X: b.Pos.X, Y: b.Pos.Y, Width: 16, Height: 16}, rl.Rectangle{X: enemies[i].Pos.X, Y: enemies[i].Pos.Y, Width: 16, Height: 16}) {
 			b.Alive = false
 			enemies[i].Alive = false
+			rl.SetSoundPitch(explosion, 1.0+float32(rl.GetRandomValue(-10, 10))/100)
+			rl.PlaySound(explosion)
 		}
 	}
 }
@@ -52,6 +56,9 @@ func (b *Bullet) Draw() {
 func Init() {
 	// create empty bullet slice
 	bullets = make([]Bullet, 0)
+
+	// load explosion sound
+	explosion = rl.LoadSound("internal/assets/explosion.wav")
 }
 
 func Update() {

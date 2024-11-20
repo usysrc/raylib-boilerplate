@@ -12,6 +12,8 @@ var scale float32
 var speed float32
 var Alive bool
 
+var snd rl.Sound
+
 func Init() {
 	Alive = false
 	speed = 200
@@ -20,6 +22,7 @@ func Init() {
 	rl.UnloadImage(img)
 	shipPos = rl.Vector2{X: 200, Y: 200}
 	scale = 4
+	snd = rl.LoadSound("internal/assets/laser.wav")
 }
 
 type GamestateSwitcher interface {
@@ -41,6 +44,7 @@ func Update(g GamestateSwitcher) {
 		velocity.X += 1.0 * float32(rl.GetFrameTime()) * speed
 	}
 	if rl.IsKeyPressed(rl.KeySpace) {
+		rl.PlaySound(snd)
 		bullet.Create(shipPos.X, shipPos.Y)
 	}
 	shipPos.X += velocity.X

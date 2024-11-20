@@ -15,6 +15,7 @@ func main() {
 	myGame = &game.Game{}
 	rl.SetConfigFlags(rl.FlagMsaa4xHint)
 	rl.InitWindow(800, 600, "raylib boilerplate")
+	rl.InitAudioDevice()
 	defer rl.CloseWindow()
 
 	rl.SetTargetFPS(60)
@@ -29,4 +30,5 @@ func main() {
 		myGame.Draw()
 		rl.EndDrawing()
 	}
+	rl.CloseAudioDevice()
 }
