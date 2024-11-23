@@ -69,6 +69,7 @@ func (b *Bullet) Draw() {
 }
 
 func Init() {
+	fmt.Println("Bullet init")
 	// create empty bullet slice
 	bullets = make([]Bullet, 0)
 

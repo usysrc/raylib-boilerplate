@@ -11,20 +11,21 @@ import (
 // Play is the main game state
 type Play struct {
 	background rl.Texture2D
+	Ship       *ship.Ship
 }
 
 func (p *Play) Init() {
 	img := rl.LoadImage("internal/assets/background.png")
 	p.background = rl.LoadTextureFromImage(img)
 	rl.UnloadImage(img)
-	ship.Init()
+	p.Ship = ship.NewShip()
 	bullet.Init()
 	enemy.Init()
 	particle.Init()
 }
 
 func (p *Play) Update(g *Game) error {
-	ship.Update(g)
+	p.Ship.Update(g)
 	bullet.Update()
 	enemy.Update()
 	particle.Update()
@@ -37,7 +38,7 @@ func (p *Play) Draw() {
 
 	// draw the ship, bullets and enemies
 	bullet.Draw()
-	enemy.Draw()
-	ship.Draw()
+	enemy.Draw(p.Ship)
+	p.Ship.Draw()
 	particle.Draw()
 }

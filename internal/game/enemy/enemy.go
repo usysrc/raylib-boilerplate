@@ -38,7 +38,18 @@ func (e *Enemy) Update() {
 	}
 }
 
-func (e *Enemy) Draw() {
+type Position interface {
+	GetPos() rl.Vector2
+}
+
+func (e *Enemy) Draw(ship Position) {
+	shipPos := ship.GetPos()
+	// check if enemy is above the ship
+	if rl.CheckCollisionCircleRec(e.Pos, 20, rl.Rectangle{X: shipPos.X, Y: 0, Width: 2, Height: float32(rl.GetScreenHeight())}) {
+		// draw a unfilled rectangle around the enemy
+		rl.DrawRectangleLines(int32(e.Pos.X-20), int32(e.Pos.Y-20), 40, 40, rl.Red)
+	}
+
 	rl.DrawTexturePro(e.image, rl.Rectangle{X: 0, Y: 0, Width: float32(e.image.Width), Height: float32(e.image.Height)}, rl.Rectangle{X: e.Pos.X, Y: e.Pos.Y, Width: float32(e.image.Width), Height: float32(e.image.Height)}, rl.Vector2{X: float32(e.image.Width) / 2, Y: float32(e.image.Height) / 2}, 0, rl.White)
 }
 
@@ -68,10 +79,10 @@ func Update() {
 	}
 }
 
-func Draw() {
+func Draw(ship Position) {
 	rl.DrawText(fmt.Sprintf("Enemies: %d", len(enemies)), 10, 10, 20, rl.White)
 	for i := range enemies {
-		enemies[i].Draw()
+		enemies[i].Draw(ship)
 	}
 }
 
