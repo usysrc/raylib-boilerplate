@@ -96,6 +96,9 @@ func Update(g GamestateSwitcher) {
 }
 
 func Draw() {
-	//draw image with the shipPos being at the center of the image
+	// draw a line from the ship to the top of the screen
+	rl.SetLineWidth(20)
+	rl.DrawLine(int32(shipPos.X), int32(shipPos.Y), int32(shipPos.X), 0, rl.Color{R: 255, G: 0, B: 0, A: 100})
+	// draw image with the shipPos being at the center of the image
 	rl.DrawTexturePro(shipImage, rl.Rectangle{X: 0, Y: 0, Width: float32(shipImage.Width), Height: float32(shipImage.Height)}, rl.Rectangle{X: shipPos.X, Y: shipPos.Y, Width: float32(shipImage.Width), Height: float32(shipImage.Height)}, rl.Vector2{X: float32(shipImage.Width) / 2, Y: float32(shipImage.Height) / 2}, 0, rl.White)
 }

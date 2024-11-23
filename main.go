@@ -13,6 +13,7 @@ func init() {}
 
 func main() {
 	myGame = &game.Game{}
+	rl.SetTraceLogLevel(rl.LogError)
 	rl.SetConfigFlags(rl.FlagMsaa4xHint)
 	rl.InitWindow(800, 600, "raylib boilerplate")
 	rl.InitAudioDevice()
