@@ -24,7 +24,7 @@ type Bullet struct {
 func Create(x, y float32) *Bullet {
 	b := &Bullet{}
 	b.Alive = true
-	b.speed = 500
+	b.speed = 2500
 	img := rl.LoadImage("internal/assets/bullet.png")
 	b.image = rl.LoadTextureFromImage(img)
 	rl.UnloadImage(img)
@@ -56,8 +56,11 @@ func (b *Bullet) Update() {
 
 				particle.Create(b.Pos, 0.5*float32(rl.GetRandomValue(1, 1000))/1000, dir)
 			}
-
+			return
 		}
+	}
+	if b.Pos.Y < 0 {
+		b.Alive = false
 	}
 }
 
